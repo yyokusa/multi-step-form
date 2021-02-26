@@ -1,50 +1,56 @@
 import React from "react";
 import { useForm, useStep } from "react-hooks-helper";
 
-import Names from "./components/Names";
-import Address from "./components/Address";
-import Contact from "./components/Contact";
-import Review from "./components/Review";
+import Services from "./components/Services";
+import Type5 from "./components/Type5";
+import Type6 from "./components/Type6";
+import Type8 from "./components/Type8";
 import Submit from "./components/Submit";
 
 import "../public/styles.css";
 
 const steps = [
-  { id: "names" },
-  { id: "address" },
-  { id: "contact" },
-  { id: "review" },
+  { id: "services" },
+  { id: "type5" },
+  { id: "type6" },
+  { id: "type8" },
   { id: "submit" }
 ];
 
+const servicesJson = require("../data/services.json");
+const questions1 = require("../data/262-questions.json");
+const questions2 = require("../data/399-questions.json");
+
 const defaultData = {
-  firstName: "Jane",
-  lastName: "Doe",
-  nickName: "Jan",
-  address: "200 South Main St",
-  city: "Anytown",
-  state: "CA",
-  zip: "90505",
-  email: "email@domain.com",
-  phone: "+61 4252 454 332"
+  serviceName: "",
+  type5: "",
+  type6: "",
+  type8: ""
 };
 
-const MultiStepForm = ({ images }) => {
+const MultiStepForm = () => {
   const [formData, setForm] = useForm(defaultData);
   const { step, navigation } = useStep({ initialStep: 0, steps });
   const { id } = step;
 
-  const props = { formData, setForm, navigation };
+  const props = {
+    formData,
+    setForm,
+    navigation,
+    servicesJson,
+    questions1,
+    questions2
+  };
 
   switch (id) {
-    case "names":
-      return <Names {...props} />;
-    case "address":
-      return <Address {...props} />;
-    case "contact":
-      return <Contact {...props} />;
-    case "review":
-      return <Review {...props} />;
+    case "services":
+      return <Services {...props} />;
+    case "type5":
+      return <Type5 {...props} />;
+    case "type6":
+      return <Type6 {...props} />;
+    case "type8":
+      return <Type8 {...props} />;
     case "submit":
       return <Submit {...props} />;
     default:
